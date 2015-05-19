@@ -7,7 +7,8 @@ from urllib import urlencode
 from urlparse import parse_qsl
 from uuid import uuid4
 
-from sentry.auth import Provider, AuthView
+from sentry.auth.provider import Provider
+from sentry.auth.view import AuthView
 from sentry.auth.exceptions import IdentityNotValid
 from sentry.http import safe_urlopen, safe_urlread
 from sentry.utils import json
