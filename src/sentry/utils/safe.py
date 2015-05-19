@@ -11,7 +11,7 @@ import logging
 import six
 
 from django.conf import settings
-from django.db import transaction
+from django.db import transaction, utils
 
 from sentry.utils.strings import truncatechars
 
@@ -26,6 +26,8 @@ def safe_execute(func, *args, **kwargs):
                 result = func(*args, **kwargs)
         else:
             result = func(*args, **kwargs)
+    except utils.DatabaseError:
+        raise
     except Exception as exc:
         if hasattr(func, 'im_class'):
             cls = func.im_class

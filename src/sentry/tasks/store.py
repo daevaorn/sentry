@@ -12,7 +12,7 @@ from celery.utils.log import get_task_logger
 from time import time
 
 from sentry.cache import default_cache
-from sentry.tasks.base import instrumented_task
+from sentry.tasks.base import instrumented_task, retry
 from sentry.utils import metrics
 from sentry.utils.safe import safe_execute
 
@@ -56,6 +56,7 @@ def preprocess_event(cache_key=None, data=None, start_time=None, **kwargs):
 @instrumented_task(
     name='sentry.tasks.store.save_event',
     queue='events')
+@retry
 def save_event(cache_key=None, data=None, start_time=None, **kwargs):
     """
     Saves an event to the database.
