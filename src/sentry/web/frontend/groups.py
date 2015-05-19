@@ -397,20 +397,20 @@ def group_details(request, organization, project, group, event_id=None):
     else:
         add_note_form = NewNoteForm()
 
-    if request.user.is_authenticated() and project.has_access(request.user):
-        # update that the user has seen this group
-        try:
-            create_or_update(
-                GroupSeen,
-                group=group,
-                user=request.user,
-                project=project,
-                values={
-                    'last_seen': timezone.now(),
-                }
-            )
-        except DatabaseError as exc:
-            logging.warn(unicode(exc), exc_info=True)
+    #if request.user.is_authenticated() and project.has_access(request.user):
+    #    # update that the user has seen this group
+    #    try:
+    #        create_or_update(
+    #            GroupSeen,
+    #            group=group,
+    #            user=request.user,
+    #            project=project,
+    #            values={
+    #                'last_seen': timezone.now(),
+    #            }
+    #        )
+    #    except DatabaseError as exc:
+    #        logging.warn(unicode(exc), exc_info=True)
 
     activity_qs = Activity.objects.filter(
         group=group,
@@ -429,9 +429,9 @@ def group_details(request, organization, project, group, event_id=None):
             activity_items.add(sig)
             activity.append(item)
 
-    activity.append(Activity(
-        project=project, group=group, type=Activity.FIRST_SEEN,
-        datetime=group.first_seen))
+    #activity.append(Activity(
+    #    project=project, group=group, type=Activity.FIRST_SEEN,
+    #    datetime=group.first_seen))
 
     # trim to latest 5
     activity = activity[:7]
