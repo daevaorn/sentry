@@ -9,6 +9,7 @@ from sentry.models import GroupRuleStatus, Rule
 from sentry.rules import EventState, rules
 from sentry.utils.cache import cache
 from sentry.utils.safe import safe_execute
+from sentry.utils.db import reset_db_state
 
 RuleFuture = namedtuple('RuleFuture', ['rule', 'kwargs'])
 
@@ -32,7 +33,7 @@ class RuleProcessor(object):
         cache_key = 'project:%d:rules' % (self.project.id,)
         rules_list = cache.get(cache_key)
         if rules_list is None:
-            rules_list = list(Rule.objects.filter(project=self.project))
+            rules_list = map(reset_db_state, Rule.objects.filter(project=self.project))
             cache.set(cache_key, rules_list, 60)
         return rules_list
 

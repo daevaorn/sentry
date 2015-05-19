@@ -103,3 +103,9 @@ def attach_foreignkey(objects, field, related=[], database=None):
 
 def table_exists(name, using=DEFAULT_DB_ALIAS):
     return name in connections[using].introspection.table_names()
+
+
+def reset_db_state(instance):
+    instance._state.db = None
+
+    return instance

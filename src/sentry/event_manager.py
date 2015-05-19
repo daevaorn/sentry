@@ -35,7 +35,7 @@ from sentry.utils.logging import suppress_exceptions
 from sentry.tasks.index import index_event
 from sentry.tasks.merge import merge_group
 from sentry.tasks.post_process import post_process_group
-from sentry.utils.db import get_db_engine
+from sentry.utils.db import get_db_engine, reset_db_state
 from sentry.utils.safe import safe_execute, trim, trim_dict
 
 
@@ -384,7 +384,7 @@ class EventManager(object):
             **group_kwargs
         )
 
-        using = group._state.db
+        reset_db_state(group)
 
         event.group = group
 

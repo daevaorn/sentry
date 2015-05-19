@@ -23,6 +23,7 @@ from django.utils.encoding import smart_str
 import six
 
 from sentry.utils.cache import cache
+from sentry.utils.db import reset_db_state
 
 from .query import create_or_update
 
@@ -144,7 +145,7 @@ class BaseManager(Manager):
 
         # Ensure we don't serialize the database into the cache
         db = instance._state.db
-        instance._state.db = None
+        reset_db_state(instance)
         # store actual object
         try:
             cache.set(self.__get_lookup_cache_key(**{pk_name: pk_val}), instance, self.cache_ttl)
