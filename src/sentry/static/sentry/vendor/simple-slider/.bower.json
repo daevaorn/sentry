@@ -1,0 +1,37 @@
+{
+  "name": "jquery-simple-slider",
+  "version": "1.0.0",
+  "homepage": "http://loopj.com/jquery-simple-slider/",
+  "authors": [
+    {
+      "name": "James Smith",
+      "homepage": "http://loopj.com/"
+    }
+  ],
+  "description": "Unobtrusive Numerical Slider.",
+  "main": [
+    "js/simple-slider.js",
+    "css/simple-slider.css"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "*.json",
+    "*.md"
+  ],
+  "dependencies": {
+    "jquery": "jquery/jquery"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/loopj/jquery-simple-slider.git"
+  },
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.0",
+    "commit": "71115d9dbf894db114bc3028116f9f02e894653f"
+  },
+  "_source": "https://github.com/loopj/jquery-simple-slider.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/loopj/jquery-simple-slider.git"
+}

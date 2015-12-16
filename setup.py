@@ -212,8 +212,6 @@ setup(
     cmdclass={
         'build_static': BuildStatic,
         'develop': DevelopWithBuildStatic,
-        'sdist': SdistWithBuildStatic,
-        'install': SmartInstall,
     },
     license='BSD',
     include_package_data=True,
