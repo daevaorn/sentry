@@ -14,7 +14,7 @@ from Cookie import SmartCookie
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from pipes import quote
-from urllib import urlencode
+from django.utils.http import urlencode
 from urlparse import parse_qsl, urlsplit, urlunsplit
 
 from sentry.constants import HTTP_METHODS

@@ -15,7 +15,6 @@ __all__ = (
 
 import base64
 import os.path
-import urllib
 
 from django.conf import settings
 from django.contrib.auth import login
@@ -26,6 +25,7 @@ from django.test import TestCase, TransactionTestCase
 from django.utils.importlib import import_module
 from exam import before, Exam
 from nydus.db import create_cluster
+from django.utils.http import urlencode
 from rest_framework.test import APITestCase as BaseAPITestCase
 
 from sentry import auth
@@ -175,7 +175,7 @@ class BaseTestCase(Fixtures, Exam):
         }
         with self.tasks():
             resp = self.client.get(
-                '%s?%s' % (reverse('sentry-api-store', args=(self.project.pk,)), urllib.urlencode(qs)),
+                '%s?%s' % (reverse('sentry-api-store', args=(self.project.pk,)), urlencode(qs)),
                 **headers
             )
         return resp

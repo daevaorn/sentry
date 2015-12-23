@@ -13,10 +13,10 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect
+from django.utils.http import urlencode
 
 from sentry.models import Event
 from sentry.replays import Replayer
-from sentry.utils.http import safe_urlencode
 from sentry.web.decorators import has_group_access, render_to_response
 from sentry.web.forms import ReplayForm
 
@@ -44,7 +44,7 @@ def replay_event(request, organization, project, group, event_id):
         headers = ''
 
     if isinstance(http.data, dict):
-        data = safe_urlencode(http.data)
+        data = urlencode(http.data)
     else:
         data = http.data
 
