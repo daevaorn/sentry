@@ -386,14 +386,6 @@ class EventManager(object):
 
         event.group = group
 
-        try:
-            with transaction.atomic():
-                EventMapping.objects.create(
-                    project=project, group=group, event_id=event_id)
-        except IntegrityError:
-            self.logger.info('Duplicate EventMapping found for event_id=%s', event_id)
-            return event
-
         UserReport.objects.filter(
             project=project, event_id=event_id,
         ).update(group=group)
