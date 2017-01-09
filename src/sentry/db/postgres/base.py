@@ -61,6 +61,15 @@ class DatabaseWrapper(DatabaseWrapper):
         cursor = super(DatabaseWrapper, self)._cursor()
         return CursorWrapper(self, cursor)
 
+    def abort(self):
+        if self._dirty:
+            try:
+                self.rollback()
+            except Database.InterfaceError:
+                self.close()
+        while self.transaction_state:
+            self.leave_transaction_management()
+
     def close(self, reconnect=False):
         """
         This ensures we dont error if the connection has already been closed.
@@ -74,6 +83,7 @@ class DatabaseWrapper(DatabaseWrapper):
                     # like pgbouncer idle timeout.
                     pass
             self.connection = None
+        self.set_clean()
 
 
 class DatabaseFeatures(DatabaseFeatures):
